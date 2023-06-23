@@ -73,6 +73,25 @@
 
 
         <!-- Tab panes -->
+        <script>
+            session_start();
+            if ($_SESSION['symbol'] === "BA") { // Utilisez $_SESSION['symbol'] ici
+                $_SESSION['symbol'] = "BA";
+            } else if ($_SESSION['symbol'] === "AIR.PA") { // Utilisez $_SESSION['symbol'] ici
+                $_SESSION['symbol'] = "AIR.PA";
+            } else {
+                $_SESSION['symbol'] = ""; // Valeur par défaut si aucune condition n'est satisfaite
+            }
+        </script>
+        <?php
+        $symbol = ""; // Initialisez la variable $symbol avec une valeur par défaut
+
+        if (isset($_POST['symbole'])) { // Vérifiez si le paramètre "symbole" est soumis dans le formulaire
+            $symbol = $_POST['symbole']; // Assignez la valeur du paramètre "symbole" à la variable $symbol
+        }
+
+        var_dump($_POST['symbole']); // Débogage - Affiche la valeur du paramètre "symbole"
+        ?>
 
         <div id="simulation" class="tab-content">
 
@@ -84,8 +103,16 @@
 
                     <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 
+                        <table>
 
-                        <button type="submit" name="Boeing_etude" class="btn btn-primary">Étudier</button>
+                            <tr>
+                                <td> <label for="paramsymbole"> symbole</label> </td>
+                                <td> <input type="text" id="paramsymbole" name="symbole" value="<?php echo $symbol; ?>" /></td>
+                            </tr>
+                        </table>
+
+
+                        <button type="submit" name="Boeing" class="btn btn-primary">Étudier</button>
 
                 </div>
                 </form>
@@ -96,6 +123,32 @@
 
 
             <!-- fin simulation -->
+
+
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $symbol = ($_POST['symbole']);
+                //print_r($symbol);
+                //$fichier_figure = "Boeing";
+                $fichier_py = "../back.py";
+                $dir = getcwd();
+                $chemin = $dir . "/" . $fichier_py;
+                //$chemin = $fichier_py;
+
+                //echo $chemin;
+                //echo "<br>";
+
+                $cmd = "python " . " " . $chemin .  " " . $symbol;
+                //echo $cmd;
+                $output = null;
+                $retval = null;
+                $sortie = exec($cmd, $output, $retval);
+                //var_dump($output);
+                //echo "<br>";
+                //echo $output[0][3];
+            } else {
+            }
+            ?>
 
             <div id="tabStats" class="container tab-pane fade"><br>
                 <h3 class="fontsofia"> Tableau des statistiques descriptives</h3>
@@ -116,94 +169,26 @@
                         <tr>
                             <td>nombres d'observations</td>
                             <td class="text-center">n</td>
-                            <td class="text-center"><?php
-                                                    $symbol = $_GET['symbol'];
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure . " " . $symbol;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $nombre_observations = $output[1]; // Récupérer la valeur de nombre_observations
-                                                    echo $nombre_observations; ?></td>
+                            <td class="text-center"><?php echo $output[0];  ?></td>
                         </tr>
 
                         <tr>
                             <td>minimum</td>
                             <td class="text-center">$$\displaystyle min(x_{1}, \ldots , x_{n}) $$</td>
-                            <td class="text-center"><?php
-
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $valeur_min = $output[2]; // Récupérer la valeur de nombre_observations
-                                                    echo $valeur_min; ?></td>
+                            <td class="text-center"><?php echo $output[1]; ?></td>
                         </tr>
 
                         <tr>
                             <td>maximum</td>
                             <td class="text-center">$$\displaystyle max(x_{1}, \ldots , x_{n}) $$</td>
-                            <td class="text-center"><?php
-
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $valeur_max = $output[3]; // Récupérer la valeur de nombre_observations
-                                                    echo $valeur_max; ?></td>
+                            <td class="text-center"><?php echo $output[2] ?></td>
                         </tr>
 
                         <tr>
                             <td>moyenne empirique</td>
                             <td class="text-center">$$\displaystyle m_{1}=\overline{x}_{n}= \frac{1}{n}
                                 \sum\limits_{i=1}^{n} x_{i}$$</td>
-                            <td class="text-center"><?php
-
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $moyenne = $output[4]; // Récupérer la valeur de nombre_observations
-                                                    echo $moyenne; ?></td>
+                            <td class="text-center"><?php echo $output[3]; ?></td>
                         </tr>
 
 
@@ -211,70 +196,19 @@
                             <td>variance empirique</td>
                             <td class="text-center">$$\displaystyle \mu_{2}= \frac{1}{n} \sum\limits_{i=1}^{n}
                                 \big(x_{i}-\overline{x}_{n}\big)^{2}$$</td>
-                            <td class="text-center"><?php
-
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $variance = $output[5]; // Récupérer la valeur de nombre_observations
-                                                    echo $variance; ?></td>
+                            <td class="text-center"><?php echo $output[4]; ?></td>
                         </tr>
 
                         <tr>
                             <td>Asym&eacute;trie (skewness)</td>
                             <td class="text-center"> $$\displaystyle \gamma_{1}=\frac{\mu_{3}}{\mu_{2}^{3/2}}$$</td>
-                            <td class="text-center"><?php
-
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $asymétrie = $output[6]; // Récupérer la valeur de nombre_observations
-                                                    echo $asymétrie; ?></td>
+                            <td class="text-center"><?php echo $output[5] ?></td>
                         </tr>
 
                         <tr>
                             <td> Aplatissement (kurtosis)</td>
                             <td class="text-center"> $$\displaystyle \gamma_{2}=\frac{\mu_{4}}{\mu_{2}^{2}}-3$$</td>
-                            <td class="text-center"><?php
-
-                                                    $fichier_figure = "Boeing.csv";
-                                                    $fichier_py = "../back.py";
-                                                    $dir = getcwd();
-                                                    $chemin = $dir . "/" . $fichier_py;
-                                                    //$chemin = $fichier_py;
-
-                                                    //echo $chemin;
-                                                    //echo "<br>";
-
-                                                    $cmd = "python " . " " . $chemin . " " . $fichier_figure;
-                                                    //echo $cmd;
-                                                    $output = null;
-                                                    $retval = null;
-                                                    $sortie = exec($cmd, $output, $retval);
-                                                    $aplatissement = $output[7]; // Récupérer la valeur de nombre_observations
-                                                    echo $aplatissement; ?></td>
+                            <td class="text-center"><?php echo $output[6]; ?></td>
                         </tr>
 
                     </tbody>
@@ -322,13 +256,7 @@
 
 
 
-                    $Histogramme = <<<EOT
-<center>
-<img src={$nom_histo} alt='BA_histo' />
-</center>
-EOT;
 
-                    echo ($Histogramme);
 
 
                 ?>

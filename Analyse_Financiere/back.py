@@ -13,11 +13,11 @@ from flask import Flask, render_template, request
 import bs4
 #import PySide2
 #import ipykernel
-import IPython
+#import IPython
 #import ipywidgets
 #import ipython_beautifulsoup  
-import jupyter
-import statistics as stat
+#import jupyter
+#import statistics as stat
 from scipy.stats import skew, kurtosis
 
 import sys
@@ -97,70 +97,60 @@ def moving_average_convergence_divergence(data, short_period, long_period, signa
 
     return macd_line.tolist(), signal_line.tolist(), histogram.tolist()
 
-# Les données de The Boeing Company (BA) du 1er janvier 2021 à aujourd'hui
+def stats(data, symbol):
+    nomfig=symbol + "_histo"
+    nombre_observations = int(len(data))
+    valeur_minimale = round(min(data), 4)
+    valeur_maximale = round(max(data),4)
+    moyenne = round(np.mean(data),4)
+    variance = round(np.var(data),4)
+    asymetrie = round(skew(data),4)
+    aplatissement = round(kurtosis(data),4)
+    Librairie_fonctions.Histo_Continue(data, 10,nomfig)
+    #print(nombre_observations)
+    return nombre_observations, valeur_minimale, valeur_maximale, moyenne, variance, asymetrie, aplatissement
 
-depart=datetime.datetime(2021,1,1)  # 1er janvier 2021
-fin=datetime.datetime.today()  # jour=aujourd'hui
-period = (fin - depart).days  # Période basée sur le temps écoulé en jours
+if __name__=='__main__':
+    # Les données de The Boeing Company (BA) du 1er janvier 2021 à aujourd'hui
 
-# Récupérer le symbole depuis les arguments de ligne de commande
-symbol = sys.argv[1]
+    depart=datetime.datetime(2021,1,1)  # 1er janvier 2021
+    fin=datetime.datetime.today()  # jour=aujourd'hui
+    period = (fin - depart).days  # Période basée sur le temps écoulé en jours
 
-data=pdr.get_data_yahoo(symbol, 
-               start=depart,
-               end=fin)
+    # Récupérer le symbole depuis les arguments de ligne de commande
+    symbol = sys.argv[1]
 
-#money_flow_index(data_BA, 5)
-#relative_strength_index(data_BA,5)
+    data=pdr.get_data_yahoo(symbol, 
+                start=depart,
+                end=fin, progress = False)
 
-# Exemple d'utilisation
-data = data['Open'].values.tolist()
-#short_period = 12  
-#long_period = 26 
-#signal_period = 9 
+    #money_flow_index(data_BA, 5)
+    #relative_strength_index(data_BA,5)
 
-#macd, signal, histogram = moving_average_convergence_divergence(data, short_period, long_period, signal_period)
-#print("MACD Line:", macd)
-#print("Signal Line:", signal)
-#print("Histogram:", histogram)
+    # Exemple d'utilisation
+    data = data['Open'].values.tolist()
+    #short_period = 12  
+    #long_period = 26 
+    #signal_period = 9 
 
-# Tracer l'histogramme
-#plt.plot(histogram, color='red', label='Histogram')
-#plt.axhline(0, color='black', linestyle='--')
-#plt.xlabel('Time')
-#plt.ylabel('Histogram')
-#plt.title('MACD Histogram')
-#plt.legend()
-#plt.show()
+    #macd, signal, histogram = moving_average_convergence_divergence(data, short_period, long_period, signal_period)
+    #print("MACD Line:", macd)
+    #print("Signal Line:", signal)
+    #print("Histogram:", histogram)
 
-Librairie_fonctions.Histo_Continue(data, 10,nom=symbol + "_histo")
+    # Tracer l'histogramme
+    #plt.plot(histogram, color='red', label='Histogram')
+    #plt.axhline(0, color='black', linestyle='--')
+    #plt.xlabel('Time')
+    #plt.ylabel('Histogram')
+    #plt.title('MACD Histogram')
+    #plt.legend()
+    #plt.show()
 
-
-nombre_observations = len(data)
-print(nombre_observations)
-
-# Calculer la valeur minimale des observations
-#valeur_minimale = data['Close'].min()
-valeur_minimale = min(data)
-print(valeur_minimale)
-
-# Calculer la valeur maximale des observations
-#valeur_maximale = data['Close'].max()
-valeur_maximale = max(data)
-print(valeur_maximale)
-
-# Calculer la moyenne empirique des observations
-moyenne = stat.mean(data)
-print(moyenne)
-
-# Calculer la variance empirique des observations
-variance = stat.variance(data)
-print(variance)
-
-#Calculer l'asymétrie (skewness) empirique des observations
-asymetrie = skew(data)
-print(asymetrie)
-
-#Calculer l'aplatissement (kurtosis) empirique des observations
-aplatissement = kurtosis(data)
-print(aplatissement)
+    print(stats(data, "BA")[0])
+    print(stats(data, "BA")[1])
+    print(stats(data, "BA")[2])
+    print(stats(data, "BA")[3])
+    print(stats(data, "BA")[4])
+    print(stats(data, "BA")[5])
+    print(stats(data, "BA")[6])

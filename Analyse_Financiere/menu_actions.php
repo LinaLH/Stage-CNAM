@@ -19,19 +19,19 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Secteur Aeronautique</a>
                 <div class="dropdown-menu">
-                    <li><a class="dropdown-item" href="entreprises/Boeing.php?symbol=BA" target="affichage">BA</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/Boeing.php" target="affichage">BA</a></li>
 
-                    <li><a class="dropdown-item" href="entreprises/Boeing.php?symbol=AIR.PA" target="affichage">AIR.PA</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/Boeing.php" target="affichage">AIR.PA</a></li>
 
-                    <li><a class="dropdown-item" href="entreprises/Lockheed_Martin.php" target="affichage">HON</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/Lockheed_Martin.php" target="affichage">HON</a></li>
 
-                    <li><a class="dropdown-item" href="entreprises/Honeywell.php" target="affichage">GD</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/Honeywell.php" target="affichage">GD</a></li>
 
-                    <li><a class="dropdown-item" href="entreprises/General_Dynamics.php" target="affichage">BAESY</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/General_Dynamics.php" target="affichage">BAESY</a></li>
 
-                    <li><a class="dropdown-item" href="entreprises/BAE_Systems.php" target="affichage">NOC</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/BAE_Systems.php" target="affichage">NOC</a></li>
 
-                    <li><a class="dropdown-item" href="entreprises/Northrop_Grumman.php" target="affichage">BDRAF</a></li>
+                    <li><a class="dropdown-item symbol-link" href="entreprises/Northrop_Grumman.php" target="affichage">BDRAF</a></li>
 
                 </div>
             </div>
