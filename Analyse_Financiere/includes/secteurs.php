@@ -37,22 +37,31 @@
     </tr>
     <tr>
       <td> Lockheed Martin Corporation </td>
-      <td> HON </td>
+      <td> LMT </td>
+
     </tr>
     <tr>
       <td> Honeywell International Inc. </td>
-      <td> GD </td>
+      <td> HON </td>
+
     </tr>
     <tr>
       <td> General Dynamics Corporation </td>
-      <td> BAESY </td>
+      <td> GD </td>
+
     </tr>
     <tr>
       <td> BAE Systems plc </td>
-      <td> NOC </td>
+      <td> BAESY </td>
+
     </tr>
     <tr>
       <td> Northrop Grumman Corporation </td>
+      <td> NOC </td>
+
+    </tr>
+    <tr>
+      <td> Bombardier Inc. </td>
       <td> BDRAF </td>
     </tr>
   </table>
@@ -90,14 +99,18 @@
     </tr>
     <tr>
       <td> General Motors Company </td>
-      <td> F </td>
+      <td> GM </td>
     </tr>
     <tr>
       <td> Ford Motor Company </td>
-      <td> FCAU </td>
+      <td> F </td>
     </tr>
     <tr>
       <td> Honda Motor Co., Ltd. </td>
+      <td> HMC </td>
+    </tr>
+    <tr>
+      <td> Bayerische Motoren Werke Aktiengesellschaft </td>
       <td> BMW.DE </td>
     </tr>
   </table>
@@ -112,19 +125,25 @@
     </tr>
     <tr>
       <td> Exxon Mobil Corporation </td>
-      <td> CVX </td>
+      <td> XOM </td>
     </tr>
     <tr>
       <td> Chevron Corporation </td>
-      <td> PTR </td>
+      <td> CVX </td>
+
     </tr>
     <tr>
       <td> Petr&oacute;leo Brasileiro S.A. - Petrobras </td>
-      <td> ARVCY </td>
+      <td> PTR </td>
+
     </tr>
     <tr>
       <td> BP </td>
+      <td> BP </td>
+    </tr>
+    <tr>
       <td> ENI </td>
+      <td> E </td>
     </tr>
     <tr>
       <td> Shell </td>
@@ -417,23 +436,26 @@
     </tr>
     <tr>
       <td> Verizon Communications Inc. </td>
-      <td> T </td>
+      <td> VZ </td>
+
     </tr>
     <tr>
       <td> AT&T Inc. </td>
-      <td> CHL </td>
+      <td> T </td>
     </tr>
     <tr>
       <td> Vodafone Group Public Limited Company </td>
-      <td> DTEGY </td>
+      <td> VOD </td>
+
     </tr>
     <tr>
       <td> Deutsche Telekom AG </td>
-      <td> NPPXF </td>
+      <td> DTEGY </td>
+
     </tr>
     <tr>
       <td> Nippon Telegraph and Telephone Corporation </td>
-      <td> DCM </td>
+      <td> NPPXF </td>
     </tr>
   </table>
 
@@ -451,30 +473,34 @@
     </tr>
     <tr>
       <td> Alibaba Group Holding Limited </td>
-      <td> BIDU </td>
+      <td> BABA </td>
     </tr>
     <tr>
       <td> Baidu, Inc. </td>
-      <td> SAP </td>
+      <td> BIDU </td>
     </tr>
     <tr>
       <td> SAP SE </td>
-      <td> CRM </td>
+      <td> SAP </td>
     </tr>
     <tr>
       <td> Salesforce, Inc. </td>
-      <td> YHOO </td>
+      <td> CRM </td>
     </tr>
     <tr>
       <td> VMware, Inc. </td>
-      <td> ADBE </td>
+      <td> VMW </td>
     </tr>
     <tr>
       <td> Adobe Inc. </td>
-      <td> INTU </td>
+      <td> ADBE </td>
     </tr>
     <tr>
       <td> Intuit Inc. </td>
+      <td> INTU </td>
+    </tr>
+    <tr>
+      <td> LinkedIn Corporation </td>
       <td> LNKD </td>
     </tr>
   </table>
@@ -525,18 +551,26 @@
     </tr>
     <tr>
       <td> JD.com, Inc. </td>
-      <td> NOK </td>
+      <td> JD </td>
     </tr>
     <tr>
       <td> Nokia Oyj </td>
-      <td> NTDOY </td>
+      <td> NOK </td>
     </tr>
     <tr>
       <td> Micron Technology, Inc. </td>
+      <td> MU </td>
+    </tr>
+    <tr>
+      <td> Panasonic Holdings Corporation </td>
       <td> PCRFY </td>
     </tr>
     <tr>
       <td> Nintendo Co., Ltd. </td>
+      <td> NTDOY </td>
+    </tr>
+    <tr>
+      <td> Toshiba Corporation </td>
       <td> TOSYY </td>
     </tr>
   </table>
