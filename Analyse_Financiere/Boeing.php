@@ -465,19 +465,6 @@ if (isset($_GET['symbol'])) {
         </ul>
 
 
-        <!-- Tab panes -->
-        <script>
-            //session_start();
-            //if ($_SESSION['symbol'] === "BA") { // Utilisez $_SESSION['symbol'] ici
-            //    $_SESSION['symbol'] = "BA";
-            //} else if ($_SESSION['symbol'] === "AIR.PA") { // Utilisez $_SESSION['symbol'] ici
-            //    $_SESSION['symbol'] = "AIR.PA";
-            //} else {
-            //    $_SESSION['symbol'] = ""; // Valeur par défaut si aucune condition n'est satisfaite
-            //}
-        </script>
-
-
         <div id="simulation" class="tab-content">
 
             <div id="donnees" class="container tab-pane active"><br>

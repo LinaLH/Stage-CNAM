@@ -168,3 +168,33 @@ def Histo_Continue(data,k,nom=None):
         plt.close()
 
   
+
+
+
+
+
+
+def adresse_symbole(symbole,date_D,date_F):
+
+    import datetime
+    import time
+    import pandas
+
+    add_1="https://query1.finance.yahoo.com/v7/finance/download/"
+    add_1=add_1+str(symbole)+"?"
+
+    add_f="&interval=1d&events=history&includeAdjustedClose=true"
+
+    ff=datetime.datetime.today()    
+    R="{}-{}-{}".format(ff.year,ff.month,ff.day)
+
+    date_depart='%.0f' %time.mktime(datetime.datetime.strptime(date_D, "%Y-%m-%d").timetuple())
+    date_F= '%.0f' %time.mktime(datetime.datetime.strptime(date_F, "%Y-%m-%d").timetuple())
+    site="{}period1={}&period2={}{}".format(add_1,date_depart,date_F,add_f)
+    return pandas.read_csv(site,parse_dates=["Date"],index_col=["Date"])
+
+
+
+
+    
+    
