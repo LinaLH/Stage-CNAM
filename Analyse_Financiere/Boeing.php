@@ -46,6 +46,7 @@
     </style>
 
 </head>
+
 <?php
 $symbol = ""; // Initialisez la variable $symbol avec une valeur par défaut
 $short_period = 12; // Initialisez la variable $short_period avec une valeur par défaut
@@ -439,6 +440,84 @@ if (isset($_GET['symbol'])) {
 }
 
 ?>
+<?php
+// Vérifier si une date de départ est soumise via le formulaire
+if (isset($_POST['depart'])) {
+    $departInput = new DateTime($_POST['depart']);
+    $depart = $departInput->format('Y-m-d');
+} else {
+    // Utiliser la date de départ par défaut
+    $depart = '2021-01-01';
+}
+
+// Vérifier si une date de fin est soumise via le formulaire
+if (isset($_POST['fin'])) {
+    $finInput = new DateTime($_POST['fin']);
+    $fin = $finInput->format('Y-m-d');
+} else {
+    // Utiliser la date de fin comme la date actuelle
+    $fin = date('Y-m-d');
+}
+
+// Convertir la date de départ en objet DateTime
+$departObj = new DateTime($depart);
+
+// Obtenir le mois et l'année de la date de départ
+$mois_d = $departObj->format('n');
+$annee_d = $departObj->format('Y');
+
+// Calculer le nombre de jours dans le mois et le premier jour de la semaine
+$nombreJours_d = cal_days_in_month(CAL_GREGORIAN, $mois_d, $annee_d);
+$premierJour_d = date('w', strtotime("{$annee_d}-{$mois_d}-1"));
+
+// Tableau des noms de jours de la semaine
+$joursSemaine_d = array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam');
+?>
+<?php
+// Convertir la date de fin en objet DateTime
+$finObj = new DateTime($fin);
+
+// Obtenir le mois et l'année de la date de fin
+$mois_f = $finObj->format('n');
+$annee_f = $finObj->format('Y');
+
+// Calculer le nombre de jours dans le mois et le premier jour de la semaine
+$nombreJours_f = cal_days_in_month(CAL_GREGORIAN, $mois_f, $annee_f);
+$premierJour_f = date('w', strtotime("{$annee_f}-{$mois_f}-1"));
+
+// Tableau des noms de jours de la semaine
+$joursSemaine_f = array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam');
+
+
+// Calculer la différence en jours entre la date de départ et la date de fin
+$interval = $departObj->diff($finObj);
+$period = $interval->days;
+?>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $symbol = ($_POST['symbol']);
+    //print_r($symbol);
+    //$fichier_figure = "Boeing";
+    $fichier_py = "back.py";
+    $dir = getcwd();
+    $chemin = $dir . "/" . $fichier_py;
+    //$chemin = $fichier_py;
+
+    //echo $chemin;
+    //echo "<br>";
+
+    $cmd = "python " . " " . $chemin .  " " . $symbol . " " . $short_period . " " . $long_period . " " . $signal_period . " " . $depart . " " . $fin . " " . $period;
+    //echo $cmd;
+    $output = null;
+    $retval = null;
+    $sortie = exec($cmd, $output, $retval);
+    //var_dump($output);
+    //echo "<br>";
+    //echo $output[0][3];
+    //echo $output[9];
+} else {
+}
+?>
 
 <body>
 
@@ -468,6 +547,7 @@ if (isset($_GET['symbol'])) {
         <div id="simulation" class="tab-content">
 
             <div id="donnees" class="container tab-pane active"><br>
+
                 <h3 class="fontsofia"> Étude des donn&eacute;es</h3>
 
                 <div style="padding:10px; border-style:solid;border-width: 3px; width:50%;">
@@ -495,65 +575,14 @@ if (isset($_GET['symbol'])) {
                                 <td> <input type="text" id="paramsignalperiod" name="signal_period" value="<?php echo $signal_period;
                                                                                                             ?>" /></td>
                             </tr>
-                            <?php
-                            // Vérifier si une date de départ est soumise via le formulaire
-                            if (isset($_POST['depart'])) {
-                                $departInput = new DateTime($_POST['depart']);
-                                $depart = $departInput->format('Y-m-d');
-                            } else {
-                                // Utiliser la date de départ par défaut
-                                $depart = '2021-01-01';
-                            }
 
-                            // Vérifier si une date de fin est soumise via le formulaire
-                            if (isset($_POST['fin'])) {
-                                $finInput = new DateTime($_POST['fin']);
-                                $fin = $finInput->format('Y-m-d');
-                            } else {
-                                // Utiliser la date de fin comme la date actuelle
-                                $fin = date('Y-m-d');
-                            }
-
-                            // Convertir la date de départ en objet DateTime
-                            $departObj = new DateTime($depart);
-
-                            // Obtenir le mois et l'année de la date de départ
-                            $mois_d = $departObj->format('n');
-                            $annee_d = $departObj->format('Y');
-
-                            // Calculer le nombre de jours dans le mois et le premier jour de la semaine
-                            $nombreJours_d = cal_days_in_month(CAL_GREGORIAN, $mois_d, $annee_d);
-                            $premierJour_d = date('w', strtotime("{$annee_d}-{$mois_d}-1"));
-
-                            // Tableau des noms de jours de la semaine
-                            $joursSemaine_d = array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam');
-                            ?>
                             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <label for="depart">Date de départ:</label>
                                 <input type="date" name="depart" id="depart" value="<?php echo $depart; ?>">
                                 <input type="submit" value="Soumettre">
                             </form>
                             <br>
-                            <?php
-                            // Convertir la date de fin en objet DateTime
-                            $finObj = new DateTime($fin);
 
-                            // Obtenir le mois et l'année de la date de fin
-                            $mois_f = $finObj->format('n');
-                            $annee_f = $finObj->format('Y');
-
-                            // Calculer le nombre de jours dans le mois et le premier jour de la semaine
-                            $nombreJours_f = cal_days_in_month(CAL_GREGORIAN, $mois_f, $annee_f);
-                            $premierJour_f = date('w', strtotime("{$annee_f}-{$mois_f}-1"));
-
-                            // Tableau des noms de jours de la semaine
-                            $joursSemaine_f = array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam');
-
-
-                            // Calculer la différence en jours entre la date de départ et la date de fin
-                            $interval = $departObj->diff($finObj);
-                            $period = $interval->days;
-                            ?>
 
                             <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <label for="fin">Date de fin:</label>
@@ -578,33 +607,13 @@ if (isset($_GET['symbol'])) {
             <!-- fin simulation -->
 
 
-            <?php
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $symbol = ($_POST['symbol']);
-                //print_r($symbol);
-                //$fichier_figure = "Boeing";
-                $fichier_py = "back.py";
-                $dir = getcwd();
-                $chemin = $dir . "/" . $fichier_py;
-                //$chemin = $fichier_py;
 
-                //echo $chemin;
-                //echo "<br>";
 
-                $cmd = "python " . " " . $chemin .  " " . $symbol . " " . $short_period . " " . $long_period . " " . $signal_period . " " . $depart . " " . $fin . " " . $period;
-                //echo $cmd;
-                $output = null;
-                $retval = null;
-                $sortie = exec($cmd, $output, $retval);
-                //var_dump($output);
-                //echo "<br>";
-                //echo $output[0][3];
-            } else {
-            }
-            ?>
 
             <div id="tabStats" class="container tab-pane fade"><br>
-                <h3 class="fontsofia"> Tableau des statistiques descriptives</h3>
+
+                <h3 class="fontsofia"> Tableau des statistiques descriptives de <?php echo $output[9]; ?>
+                </h3>
 
                 <br>
 
@@ -672,8 +681,9 @@ if (isset($_GET['symbol'])) {
             <!-- Fin table -->
 
             <div id="histo" class="container tab-pane fade">
+
                 <br>
-                <h3 class="fontsofia">Histogramme Des donn&eacute;es</h3>
+                <h3 class="fontsofia">Histogramme Des donn&eacute;es de <?php echo $output[9]; ?></h3>
                 <?php
 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -704,7 +714,7 @@ if (isset($_GET['symbol'])) {
                     //echo "<pre>$output</pre>";
 
                     //$nom_histo = $fichier_figure;
-                    $nom_histo = $symbol . "_histo.png";
+                    //$nom_histo = $symbol . "_histo.png";
 
 
                 ?>
@@ -712,13 +722,14 @@ if (isset($_GET['symbol'])) {
                 } ?>
 
                 <center>
-                    <img src="<?php echo $nom_histo ?>" alt='Histogramme' />
+                    <?php echo "<img src=\"data:image/png;base64,$output[7]\" align=\"middle\" style=\"width:650px;height:550px;\"\>"; ?>
                 </center>
 
             </div>
 
             <div id="analyse" class="container tab-pane fade"><br>
-                <h3 class="fontsofia"> Analyse et Estimation des donn&eacute;es</h3>
+
+                <h3 class="fontsofia"> Analyse et Estimation des donn&eacute;es de <?php echo $output[9]; ?></h3>
                 <br>
 
                 <?php
@@ -747,7 +758,7 @@ if (isset($_GET['symbol'])) {
                     //print_r($sortie);
                     //$output = shell_exec($cmd);
                     //echo "<pre>$output</pre>";
-                    $nom_courbes = $symbol . "_courbes.png";
+                    //$nom_courbes = $symbol . "_courbes.png";
 
                     //echo $nom_histo;
 
@@ -756,12 +767,11 @@ if (isset($_GET['symbol'])) {
                 } ?>
 
                 <center>
-                    <img src="<?php echo $nom_courbes ?>" alt='Courbes' />
+                    <?php echo "<img src=\"data:image/png;base64,$output[8]\" align=\"middle\" style=\"width:800px;height:750px;\"\>"; ?>
                 </center>
             </div>
 
         </div>
-
     </div>
 
     <script>

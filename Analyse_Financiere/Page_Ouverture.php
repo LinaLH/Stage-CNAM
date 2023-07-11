@@ -58,11 +58,31 @@
   <p style="color:red; font-weight: bold; font-size: 30px;">Le sujet du stage : Indicateurs pour l'analyse technique de l'évolution du prix d'un actif
   </p>
 
-
-  <br><br>
-  <p style="color:green; font-weight: bold; font-size: 20px;"> inclure le fichier : secteurs.php
-
+  <p>
+    <b> RSI (Relative Strength Index) :</b>
+    <br>
+    Le RSI est un <b>indicateur de momentum</b> utilisé pour <b>évaluer la force et la faiblesse d'un actif</b> financier. Il mesure la <b>vitesse et l'ampleur des variations des prix</b> et se situe dans une fourchette de 0 à 100.
+    <br>
+    Un RSI supérieur à 70 est généralement considéré comme un signe de surachat, indiquant que l'actif pourrait être surévalué et susceptible de connaître une correction à la baisse. Un RSI inférieur à 30 est généralement considéré comme un signe de survente, indiquant que l'actif pourrait être sous-évalué et susceptible de connaître une correction à la hausse.
   </p>
+
+  <p>
+    <b> MFI (Money Flow Index) : </b>
+    <br>
+    Le MFI est un <b>indicateur de momentum</b> similaire au RSI, qui prend en compte non seulement les <b>variations des prix</b>, mais également les <b>volumes de transactions</b>.
+    Il <b>mesure la pression d'achat et de vente sur un actif</b> financier en utilisant une échelle de 0 à 100.
+    <br>
+    Un MFI supérieur à 80 est généralement considéré comme un signe de surachat, tandis qu'un MFI inférieur à 20 est généralement considéré comme un signe de survente.
+  <p>
+
+  <p>
+    <b> MACD (Moving Average Convergence Divergence) : </b>
+    <br>
+    Le MACD est un <b>indicateur de tendance</b> qui combine des moyennes mobiles exponentielles (MME) pour <b>générer des signaux d'achat et de vente</b>. Il se compose de deux lignes principales : la ligne MACD et la ligne de signal.
+    Lorsque la ligne MACD croise la ligne de signal de bas en haut, cela peut être interprété comme un signal d'achat, indiquant une possible inversion de la tendance à la hausse. En revanche, lorsque la ligne MACD croise la ligne de signal de haut en bas, cela peut être interprété comme un signal de vente, indiquant une possible inversion de la tendance à la baisse.
+  </p>
+
+
   <?php include './includes/secteurs.php'; ?>
 
 
